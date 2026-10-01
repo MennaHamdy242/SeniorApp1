@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16121A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Senior">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Senior · Class of 2027</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button id="backBtn" class="icon-btn" type="button" aria-label="رجوع" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+  <div class="brand" id="brand">Senior</div>
+  <button id="gearBtn" class="icon-btn" type="button" aria-label="الإعدادات">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h0"/><circle cx="16" cy="6" r="2.4"/><circle cx="10" cy="12" r="2.4"/><circle cx="18" cy="18" r="2.4"/></svg>
+  </button>
+</header>
+
+<main>
+  <!-- Home -->
+  <section id="v-home" class="view">
+    <div class="hero">
+      <div class="wordmark" aria-label="Senior">Senior</div>
+      <div class="hero-sub">CLASS OF 2027</div>
+    </div>
+    <p class="greet" id="greet"></p>
+    <div class="countdown" id="countdown"></div>
+    <div class="tiles">
+      <a class="tile" href="#/card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2"/><path d="M14 10h4M14 14h4M6 16c.5-1.5 1.5-2 3-2s2.5.5 3 2"/></svg>
+        <b>كارت السينيور</b><span>لقبك الرسمي في الدفعة</span>
+      </a>
+      <a class="tile" href="#/frames">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="7" y="7" width="10" height="10" rx="1.5"/></svg>
+        <b>استوديو الفريمات</b><span>فريم لأي صورة</span>
+      </a>
+      <a class="tile" href="#/ai">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg>
+        <b>استوديو AI</b><span>كاريكاتير وبوسترات</span>
+      </a>
+      <a class="tile" href="#/games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5"/><circle cx="16" cy="11.5" r="1"/><circle cx="18.5" cy="14" r="1"/></svg>
+        <b>ألعاب الدفعة</b><span>كويز وعجلة وألعاب لمّة</span>
+      </a>
+    </div>
+    <button id="installBtn" class="btn wide" type="button" hidden>ثبّت التطبيق على موبايلك</button>
+  </section>
+
+  <!-- Card -->
+  <section id="v-card" class="view" hidden>
+    <h1 class="vt">كارت السينيور</h1>
+    <p class="lead">اكتب اسمك وشوف لقبك الرسمي في الدفعة.</p>
+    <input id="cardName" type="text" maxlength="24" placeholder="اكتب اسمك" autocomplete="off" enterkeyhint="done">
+    <div class="card-wrap"><img id="cardImg" alt="كارت السينيور 2027"></div>
+    <div class="actions">
+      <button id="cardAgain" type="button">لقب تاني</button>
+      <button id="cardSave" class="primary" type="button">احفظ الصورة</button>
+      <button id="cardShare" type="button" hidden>شارك</button>
+    </div>
+    <p class="status" id="cardStatus" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- Frames -->
+  <section id="v-frames" class="view" hidden>
+    <h1 class="vt">استوديو الفريمات</h1>
+    <p class="lead">ارفع صورتك، اختار فريم، واحفظها جاهزة للستوري.</p>
+    <div class="pick">
+      <label class="btn primary" for="photoIn">اختار صورة</label>
+      <input id="photoIn" class="vh" type="file" accept="image/*">
+      <span id="photoName" class="muted">لسه مفيش صورة. الفريم شغال على صورة تجريبية.</span>
+    </div>
+    <div class="stage"><canvas id="cv" role="img" aria-label="معاينة الصورة بالفريم"></canvas></div>
+    <p class="note">اسحب الصورة جوه الفريم عشان تظبط مكانها، واسحب الاستيكرز عشان تحركها.</p>
+    <div class="actions">
+      <button id="save" class="primary" type="button">احفظ الصورة</button>
+      <button id="share" type="button" hidden>شارك</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div id="finalWrap" hidden>
+      <p class="note">اضغط مطولًا على الصورة واحفظها.</p>
+      <img id="finalImg" alt="الصورة النهائية بالفريم">
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="أدوات الفريم">
+      <button type="button" role="tab" id="tab-frame" aria-controls="p-frame" aria-selected="true">الفريم</button>
+      <button type="button" role="tab" id="tab-text" aria-controls="p-text" aria-selected="false">النص</button>
+      <button type="button" role="tab" id="tab-stickers" aria-controls="p-stickers" aria-selected="false">ستيكرز</button>
+      <button type="button" role="tab" id="tab-custom" aria-controls="p-custom" aria-selected="false">فريمك</button>
+    </div>
+
+    <section class="panel" id="p-frame" role="tabpanel" aria-labelledby="tab-frame">
+      <h2>الستايل</h2>
+      <div class="chips" id="styleChips">
+        <button type="button" data-style="chrome" aria-pressed="true">كروم</button>
+        <button type="button" data-style="polaroid" aria-pressed="false">بولارويد</button>
+        <button type="button" data-style="gold" aria-pressed="false">دهبي</button>
+        <button type="button" data-style="cinema" aria-pressed="false">سينما</button>
+        <button type="button" data-style="disco" aria-pressed="false">ديسكو</button>
+        <button type="button" data-style="custom" aria-pressed="false">فريمك</button>
+      </div>
+      <h2>المقاس</h2>
+      <div class="chips" id="ratioChips">
+        <button type="button" data-ratio="fit" aria-pressed="true">على قد الصورة</button>
+        <button type="button" data-ratio="square" aria-pressed="false">مربع</button>
+        <button type="button" data-ratio="r45" aria-pressed="false">4:5</button>
+        <button type="button" data-ratio="story" aria-pressed="false">ستوري</button>
+      </div>
+      <h2>الضبط</h2>
+      <div class="row"><label for="thick">سُمك الفريم</label><input id="thick" type="range" min="0.6" max="1.6" step="0.05" value="1"></div>
+      <div class="row"><label for="round">تدوير الحواف</label><input id="round" type="range" min="0" max="1.6" step="0.05" value="1"></div>
+      <div class="row"><label for="zoom">تكبير الصورة</label><input id="zoom" type="range" min="1" max="3" step="0.05" value="1"></div>
+      <div class="row"><label for="accent">اللون المميز</label><input id="accent" type="color" value="#d6337a"></div>
+      <label class="check"><input id="decorOn" type="checkbox" checked> نجوم ولمعان</label>
+      <label class="check"><input id="confettiOn" type="checkbox"> كونفتي</label>
+    </section>
+
+    <section class="panel" id="p-text" role="tabpanel" aria-labelledby="tab-text" hidden>
+      <h2>العنوان الكبير</h2>
+      <input id="mainText" type="text" maxlength="24" value="SENIOR 2027" autocomplete="off">
+      <h2>السطر الصغير</h2>
+      <input id="subText" type="text" maxlength="32" value="CLASS OF 2027" autocomplete="off">
+    </section>
+
+    <section class="panel" id="p-stickers" role="tabpanel" aria-labelledby="tab-stickers" hidden>
+      <h2>اضغط على استيكر يتضاف</h2>
+      <div class="emoji-grid" id="emojiGrid"></div>
+      <h2>الاستيكر المحدد</h2>
+      <div class="row"><label for="stSize">الحجم</label><input id="stSize" type="range" min="0.06" max="0.5" step="0.01" value="0.16" disabled></div>
+      <div class="actions"><button id="stDel" type="button" disabled>امسح الاستيكر</button><button id="stClear" type="button" disabled>امسح الكل</button></div>
+      <p class="note">اضغط على استيكر في الصورة عشان تحدده، واسحبه لأي مكان.</p>
+    </section>
+
+    <section class="panel" id="p-custom" role="tabpanel" aria-labelledby="tab-custom" hidden>
+      <h2>ارفع فريم PNG</h2>
+      <div class="pick">
+        <label class="btn" for="frameIn">اختار فريم</label>
+        <input id="frameIn" class="vh" type="file" accept="image/*">
+        <span id="frameName" class="muted">لسه مفيش فريم.</span>
+      </div>
+      <h2>طريقة التمدد</h2>
+      <div class="chips" id="sliceChips">
+        <button type="button" data-slice="nine" aria-pressed="true">حافظ على الزوايا</button>
+        <button type="button" data-slice="stretch" aria-pressed="false">مط الفريم</button>
+      </div>
+      <div class="row"><label for="corner">حجم الزاوية</label><input id="corner" type="range" min="0.05" max="0.45" step="0.01" value="0.25"></div>
+      <label class="check"><input id="keyOn" type="checkbox"> امسح الخلفية اللي في النص</label>
+      <div class="row"><label for="tol">قوة المسح</label><input id="tol" type="range" min="10" max="140" step="5" value="40"></div>
+      <p class="note">الفريم اللي طلع بخلفية بيضاء من ChatGPT أو Gemini؟ فعّل المسح وهيشيل اللون اللي في النص.</p>
+      <h2>برومبت جاهز تديه لـ ChatGPT أو Gemini</h2>
+      <textarea id="genPrompt" readonly>Design a decorative photo frame overlay for a graduation party ("Senior 2027"). Output ONE image where the CENTER 70% is a plain flat white area (my photo will replace it) and only the border and decorations are drawn around the edges. Style: [write your style here, e.g. black and silver chrome, disco ball, film strip, pink accents]. Decorate the four corners; keep the edges simple and repeating so the frame can stretch to any photo size. Put the exact text "SENIOR 2027" on the bottom border, spelled correctly. No watermark, no people.</textarea>
+      <div class="actions"><button id="copyGen" type="button">انسخ البرومبت</button></div>
+      <p class="msg" id="copyMsg" role="status" aria-live="polite"></p>
+    </section>
+  </section>
+
+  <!-- AI studio -->
+  <section id="v-ai" class="view" hidden>
+    <h1 class="vt">استوديو AI</h1>
+    <p class="lead">كاريكاتير وبوسترات وفريمات بالذكاء الاصطناعي، بمفتاحك انت.</p>
+
+    <div class="panel">
+      <h2>المزود</h2>
+      <div class="chips" id="aiProviders">
+        <button type="button" data-p="manual" aria-pressed="true">يدوي (مجاني)</button>
+        <button type="button" data-p="gemini" aria-pressed="false">Gemini</button>
+        <button type="button" data-p="openai" aria-pressed="false">ChatGPT</button>
+      </div>
+      <p class="note" id="aiManualNote">من غير مفتاح ومن غير فلوس: التطبيق يجهزلك البرومبت، وانت تنفذه في تطبيق Gemini أو ChatGPT العادي، وترجع تستورد الصورة هنا.</p>
+      <div id="aiKeyPanel" hidden>
+      <p class="msg" id="aiKeyState"></p>
+      <details id="aiKeyBox">
+        <summary>إعداد المفتاح</summary>
+        <ol id="aiSteps" class="steps"></ol>
+        <a id="aiKeyLink" class="btn" target="_blank" rel="noopener noreferrer">افتح صفحة المفتاح</a>
+        <input id="aiKey" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="الصق المفتاح هنا" style="margin-top:12px">
+        <div class="actions"><button id="aiKeySave" class="primary" type="button">احفظ المفتاح</button><button id="aiKeyClear" type="button">امسح المفتاح</button></div>
+        <p class="note">المفتاح بيتخزن على موبايلك بس، وبيتبعت للمزود مباشرة. متشاركيهوش مع حد، وحطي حد أقصى للصرف من حسابك.</p>
+        <h2>موديل الصور (متقدم)</h2>
+        <input id="aiModel" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr">
+        <p class="note">أسماء الموديلات بتتغير. لو ظهرت رسالة إن الموديل مش موجود، اكتب الاسم الجديد من صفحة المزود. سيبه فاضي عشان الاسم الافتراضي.</p>
+      </details>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>القالب</h2>
+      <div class="chips" id="aiTemplates"></div>
+      <div id="aiStylesBox" hidden>
+        <h2>الستايل</h2>
+        <div class="chips" id="aiStyles"></div>
+      </div>
+      <div id="aiPhotoRow" class="pick" style="margin-top:14px">
+        <label class="btn" for="aiPhotoIn">اختار صورة</label>
+        <input id="aiPhotoIn" class="vh" type="file" accept="image/*">
+        <img id="aiThumb" class="thumb" alt="" hidden>
+        <span id="aiPhotoName" class="muted">القالب ده محتاج صورة وشك واضح.</span>
+      </div>
+      <div id="aiNameBox" hidden>
+        <h2>الاسم على البوستر</h2>
+        <input id="aiName" type="text" maxlength="24" autocomplete="off">
+      </div>
+      <h2 id="aiExtraLbl">تفاصيل إضافية (اختياري)</h2>
+      <input id="aiExtra" type="text" maxlength="200" autocomplete="off">
+      <h2>الشكل</h2>
+      <div class="chips" id="aiRatios">
+        <button type="button" data-r="portrait" aria-pressed="true">بورتريه</button>
+        <button type="button" data-r="square" aria-pressed="false">مربع</button>
+      </div>
+      <div class="actions"><button id="aiGo" class="primary" type="button">اعمل الصورة</button><button id="aiCancel" type="button" hidden>إلغاء</button></div>
+      <p class="status" id="aiMsg" role="status" aria-live="polite"></p>
+      <div id="aiManualOut" hidden>
+        <h2>البرومبت</h2>
+        <textarea id="aiPrompt" readonly dir="ltr"></textarea>
+        <div class="actions"><button id="aiCopy" class="primary" type="button">انسخ البرومبت</button></div>
+        <div class="actions">
+          <a class="btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">افتح Gemini</a>
+          <a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">افتح ChatGPT</a>
+        </div>
+        <ol class="steps" style="margin-top:14px">
+          <li>الصق البرومبت في شات جديد.</li>
+          <li>لو القالب محتاج صورتك، ارفعها في نفس الرسالة.</li>
+          <li>لما الصورة تطلع، احفظها على موبايلك.</li>
+          <li>ارجع هنا واضغط "استورد الصورة".</li>
+        </ol>
+        <div class="pick"><label class="btn" for="aiImport">استورد الصورة</label><input id="aiImport" class="vh" type="file" accept="image/*"></div>
+      </div>
+    </div>
+
+    <div id="aiResult" hidden>
+      <img id="aiImg" alt="نتيجة الـ AI">
+      <div class="actions">
+        <button id="aiSave" class="primary" type="button">احفظ</button>
+        <button id="aiShare" type="button" hidden>شارك</button>
+        <button id="aiUse" type="button">حطها في الفريمات</button>
+      </div>
+    </div>
+    <p class="note">كل صورة بتتحسب من حسابك عند المزود. استخدم صور الناس بموافقتهم، ومتحطش صور ناس مش عايزين.</p>
+  </section>
+
+  <!-- Games -->
+  <section id="v-games" class="view" hidden></section>
+
+  <!-- Settings -->
+  <section id="v-settings" class="view" hidden>
+    <h1 class="vt">الإعدادات</h1>
+    <div class="panel">
+      <h2>اسمك</h2>
+      <input id="sName" type="text" maxlength="24" autocomplete="off">
+      <h2>ميعاد حفلة التخرج</h2>
+      <input id="sDate" type="date">
+      <p class="note">بيظهر العد التنازلي في الصفحة الرئيسية.</p>
+      <div class="actions"><button id="sSave" class="primary" type="button">حفظ</button></div>
+      <p class="msg" id="sMsg" role="status" aria-live="polite"></p>
+    </div>
+    <div class="panel">
+      <h2>تثبيت التطبيق</h2>
+      <p class="note" id="installHelp"></p>
+      <button id="installBtn2" class="btn wide" type="button" hidden>ثبّت التطبيق</button>
+    </div>
+    <div class="panel">
+      <h2>مسح البيانات</h2>
+      <p class="note">بيمسح اسمك والميعاد ومفاتيح الـ AI من الجهاز ده بس.</p>
+      <div class="actions"><button id="sReset" type="button">امسح البيانات</button></div>
+    </div>
+    <p class="note center">Senior · Class of 2027 · v1</p>
+  </section>
+</main>
+
+<!-- Onboarding -->
+<div id="welcome" class="welcome" hidden>
+  <div class="welcome-in">
+    <div class="wordmark" aria-hidden="true">Senior</div>
+    <div class="hero-sub">CLASS OF 2027</div>
+    <form id="welcomeForm" autocomplete="off">
+      <label for="wName" class="welcome-q">اسمك إيه؟</label>
+      <input id="wName" type="text" maxlength="24" placeholder="اكتب اسمك" required>
+      <button class="primary wide" type="submit">يلا نبدأ</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/card.js"></script>
+<script src="js/frames.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/games.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
